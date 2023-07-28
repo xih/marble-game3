@@ -6,22 +6,22 @@ import { shaderMaterial } from "@react-three/drei";
 import vertex from "./shaders/shader.vert";
 import fragment from "./shaders/shader.frag";
 
-const ColorShiftMaterial = shaderMaterial(
-  {
-    time: 0,
-    {/* @ts-ignore */}
-    color: new THREE.Color(0.05, 0.2, 0.025),
-  },
-  vertex,
-  fragment
-);
+// const ColorShiftMaterial = shaderMaterial(
+//   {
+//     time: 0,
+//     {/* @ts-ignore */}
+//     color: new THREE.Color(0.05, 0.2, 0.025),
+//   },
+//   vertex,
+//   fragment
+// );
 
 // This is the 🔑 that HMR will renew if this file is edited
 // It works for THREE.ShaderMaterial as well as for drei/shaderMaterial
 // @ts-ignore
 ColorShiftMaterial.key = THREE.MathUtils.generateUUID();
 
-extend({ ColorShiftMaterial });
+// extend({ ColorShiftMaterial });
 
 type ShaderProps = Partial<MeshProps> & {
   onClick: () => void;
@@ -51,7 +51,7 @@ const ShaderExample = (props: ShaderProps) => {
     >
       <boxBufferGeometry args={[1, 1, 1]} />
       {/* @ts-ignore */}
-      <colorShiftMaterial key={ColorShiftMaterial.key} time={3} />
+      {/* <colorShiftMaterial key={ColorShiftMaterial.key} time={3} /> */}
     </mesh>
   );
 };
