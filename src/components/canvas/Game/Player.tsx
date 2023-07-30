@@ -2,7 +2,7 @@ import { useKeyboardControls } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { RapierRigidBody, RigidBody, useRapier } from "@react-three/rapier";
 import { useControls } from "leva";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { type Vector3 } from "three";
 
@@ -10,6 +10,12 @@ const Player = () => {
   const ball = useRef<RapierRigidBody>(null!);
   const [subscribeKeys, getKeys] = useKeyboardControls();
   const { rapier, world } = useRapier();
+  const [smoothedCameraPosition, setSmoothedCameraPosition] = useState(
+    () => new THREE.Vector3()
+  );
+  const [smoothedCameraTarget, setSmoothedCameraTarget] = useState(
+    () => new THREE.Vector3()
+  );
 
   const { impulseKnob, torqueKnob } = useControls({
     impulseKnob: { value: 0.6, min: 0.1, max: 1, step: 0.1 },
@@ -83,7 +89,6 @@ const Player = () => {
     // Camera
     // find the position of the ball
     const ballPosition = ball.current.translation() as Vector3;
-    console.log(ballPosition);
 
     const cameraPosition = new THREE.Vector3();
     cameraPosition.copy(ballPosition);
@@ -95,8 +100,11 @@ const Player = () => {
     cameraTarget.copy(ballPosition);
     cameraTarget.y += 0.25;
 
-    state.camera.position.copy(cameraPosition);
-    state.camera.lookAt(cameraTarget);
+    smoothedCameraPosition.lerp(cameraPosition, 5 * delta);
+    smoothedCameraTarget.lerp(cameraTarget, 5 * delta);
+
+    state.camera.position.copy(smoothedCameraPosition);
+    state.camera.lookAt(smoothedCameraTarget);
   });
 
   return (
