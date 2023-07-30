@@ -203,8 +203,6 @@ const Level = () => {
       <OrbitControls makeDefault />
       <directionalLight position={[1, 2, 3]} />
       <ambientLight intensity={1.5} />
-      
-      <Physics>
         
         <Bounds length={numBlocks + 2} />
         <BlockStart position={[0,0,0]}/>
@@ -212,7 +210,6 @@ const Level = () => {
            return <Block key={index} position={[0,0, -(index + 1) * 4]} />
         })}
         <BlockEnd position={[0,0,(numBlocks + 1) * -4]}/>
-      </Physics>
     </>
   );
 };

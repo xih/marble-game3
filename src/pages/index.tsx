@@ -1,9 +1,9 @@
 import GameExperience from "@/components/canvas/Game/GameExperience";
-import Level from "@/components/canvas/Game/Level";
 import useStore from "@/helpers/store";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import Shader from "@/components/canvas/ShaderExample/ShaderExample";
+import { KeyboardControls } from "@react-three/drei";
 
 // Prefer dynamic import for production builds
 // But if you have issues and need to debug in local development
@@ -34,10 +34,6 @@ const R3F = () => {
     <>
       {/* <Shader onClick={handleOnClick} /> */}
       <GameExperience />
-      {/* <Level /> */}
-      {/* <mesh>
-        <boxGeometry />
-      </mesh> */}
     </>
   );
 };
