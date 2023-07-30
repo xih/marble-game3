@@ -3,6 +3,8 @@ import { useFrame } from "@react-three/fiber";
 import { RapierRigidBody, RigidBody, useRapier } from "@react-three/rapier";
 import { useControls } from "leva";
 import { useEffect, useRef } from "react";
+import * as THREE from "three";
+import { type Vector3 } from "three";
 
 const Player = () => {
   const ball = useRef<RapierRigidBody>(null!);
@@ -46,6 +48,7 @@ const Player = () => {
   }, []);
 
   useFrame((state, delta) => {
+    // CONTROLS
     const { forward, backward, leftward, rightward } = getKeys();
     // console.log(keys)
 
@@ -76,6 +79,24 @@ const Player = () => {
 
     ball.current.applyImpulse(impulse, true);
     ball.current.applyTorqueImpulse(torque, true);
+
+    // Camera
+    // find the position of the ball
+    const ballPosition = ball.current.translation() as Vector3;
+    console.log(ballPosition);
+
+    const cameraPosition = new THREE.Vector3();
+    cameraPosition.copy(ballPosition);
+
+    cameraPosition.z += 2.25;
+    cameraPosition.y += 0.65;
+
+    const cameraTarget = new THREE.Vector3();
+    cameraTarget.copy(ballPosition);
+    cameraTarget.y += 0.25;
+
+    state.camera.position.copy(cameraPosition);
+    state.camera.lookAt(cameraTarget);
   });
 
   return (
