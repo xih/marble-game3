@@ -20,9 +20,9 @@ const BlockStart = ({ position }: { position: [number, number, number] }) => {
   return (
     <>
       <group position={position}>
-        <mesh scale={[4, 0.2, 4]} receiveShadow>
-          <boxGeometry args={[1, 1, 1]} />
-          <meshBasicMaterial color="limegreen" />
+        <mesh scale={[4, 0.2, 4]} receiveShadow position={[0, -0.1, 0]}>
+          <boxGeometry />
+          <meshStandardMaterial color="limegreen" />
         </mesh>
       </group>
     </>
@@ -34,9 +34,9 @@ const BlockEnd = ({ position }: { position: [number, number, number] }) => {
   return (
     <>
       <group position={position}>
-        <mesh scale={[4, 0.2, 4]} receiveShadow>
+        <mesh scale={[4, 0.2, 4]} receiveShadow castShadow>
           <boxGeometry args={[1, 1, 1]} />
-          <meshBasicMaterial color="limegreen" />
+          <meshStandardMaterial color="limegreen" />
         </mesh>
         <RigidBody type="fixed" colliders="hull" restitution={0.2} friction={0}>
           <primitive object={hamburer.scene} scale={0.2} />
@@ -72,10 +72,15 @@ const BlockSpinner = ({
     <group position={position}>
       <mesh scale={[4, 0.2, 4]} receiveShadow>
         <boxGeometry args={[1, 1, 1]} />
-        <meshBasicMaterial color="yellowgreen" />
+        <meshStandardMaterial color="yellowgreen" />
       </mesh>
       <RigidBody type="kinematicPosition" ref={blockRef}>
-        <mesh scale={[3.5, 0.3, 0.3]} position={[0, 0.5, 0]}>
+        <mesh
+          scale={[3.5, 0.3, 0.3]}
+          position={[0, 0.5, 0]}
+          castShadow
+          receiveShadow
+        >
           <boxGeometry />
           <meshStandardMaterial color="red" />
         </mesh>
@@ -113,10 +118,10 @@ const BlockGate = ({
       <group position={position}>
         <mesh scale={[4, 0.2, 4]} receiveShadow>
           <boxGeometry args={[1, 1, 1]} />
-          <meshBasicMaterial color="yellowgreen" />
+          <meshStandardMaterial color="yellowgreen" />
         </mesh>
         <RigidBody type="kinematicPosition" ref={obstacle}>
-          <mesh scale={[4, 0.2, 1]} position={[0, 0.5, 0]}>
+          <mesh scale={[4, 0.2, 1]} position={[0, 0.5, 0]} castShadow>
             <boxGeometry />
             <meshStandardMaterial color="red" />
           </mesh>
@@ -150,7 +155,7 @@ const BlockAxe = ({
         {/* floor */}
         <mesh scale={[4, 0.2, 4]} receiveShadow position={[0, -0.1, 0]}>
           <boxGeometry />
-          <meshBasicMaterial color="yellowgreen" />
+          <meshStandardMaterial color="yellowgreen" />
         </mesh>
         <RigidBody
           type="kinematicPosition"
@@ -159,7 +164,7 @@ const BlockAxe = ({
           restitution={0.2}
           friction={0}
         >
-          <mesh>
+          <mesh castShadow receiveShadow>
             <boxGeometry args={[1.5, 1.5, 0.3]} />
             <meshStandardMaterial color="red" />
           </mesh>
@@ -176,7 +181,7 @@ const Bounds = ({ length = 1 }) => {
     <>
       <RigidBody type="fixed">
         {/* right side */}
-        <mesh position={[2, 0.75, -(length * 2) + 2]}>
+        <mesh position={[2, 0.75, -(length * 2) + 2]} castShadow>
           <boxGeometry args={[0.3, 1.5, length * 4]} />
           <meshStandardMaterial color="orange" />
         </mesh>
@@ -187,8 +192,12 @@ const Bounds = ({ length = 1 }) => {
         </mesh>
 
         {/* back position */}
-        <mesh position={[0, 0.75, length * -4 + 2]} receiveShadow>
-          <boxGeometry args={[4, 1.5, 0.3]} />
+        <mesh
+          scale={[4, 1.5, 0.3]}
+          position={[0, 0.75, length * -4 + 2]}
+          receiveShadow
+        >
+          <boxGeometry />
           <meshStandardMaterial color="orange" />
         </mesh>
 
@@ -219,9 +228,6 @@ const Level = () => {
 
   return (
     <>
-      <directionalLight position={[1, 2, 3]} />
-      <ambientLight intensity={1.5} />
-
       <Bounds length={numBlocks + 2} />
       <BlockStart position={[0, 0, 0]} />
       {blocks.map((Block, index) => {

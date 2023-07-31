@@ -11,7 +11,7 @@ const Player = () => {
   const [subscribeKeys, getKeys] = useKeyboardControls();
   const { rapier, world } = useRapier();
   const [smoothedCameraPosition, setSmoothedCameraPosition] = useState(
-    () => new THREE.Vector3()
+    () => new THREE.Vector3(10, 10, 10)
   );
   const [smoothedCameraTarget, setSmoothedCameraTarget] = useState(
     () => new THREE.Vector3()
@@ -118,7 +118,7 @@ const Player = () => {
       linearDamping={0.5}
       angularDamping={0.5}
     >
-      <mesh>
+      <mesh castShadow>
         <icosahedronGeometry args={[0.3, 1]} />
         <meshStandardMaterial flatShading color="purple" />
       </mesh>

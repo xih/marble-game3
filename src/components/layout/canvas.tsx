@@ -7,6 +7,7 @@ import {
   Preload,
   Stats,
 } from "@react-three/drei";
+import * as THREE from "three";
 
 const Controls = () => {
   const control = useRef(null);
@@ -27,11 +28,18 @@ const CanvasWrapper = ({ children }) => {
       >
         <Canvas
           shadows
+          dpr={2}
+          flat
           camera={{
             fov: 45,
             near: 0.1,
             far: 200,
             position: [2.5, 4, 6],
+          }}
+          gl={{
+            antialias: false,
+            toneMapping: THREE.ACESFilmicToneMapping,
+            outputColorSpace: THREE.SRGBColorSpace,
           }}
           // Is this deprecated or typed wrong? Ignoring for now.
           // @ts-ignore
