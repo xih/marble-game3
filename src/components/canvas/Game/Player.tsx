@@ -1,3 +1,4 @@
+import useGame from "@/stores/useGame";
 import { useKeyboardControls } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { RapierRigidBody, RigidBody, useRapier } from "@react-three/rapier";
@@ -17,6 +18,11 @@ const Player = () => {
     () => new THREE.Vector3()
   );
 
+  const start = useGame((state) => state.start);
+  const end = useGame((state) => state.end);
+  const restart = useGame((state) => state.restart);
+  const blocksCount = useGame((state) => state.blocksCount);
+
   const { impulseKnob, torqueKnob } = useControls({
     impulseKnob: { value: 0.6, min: 0.1, max: 1, step: 0.1 },
     torqueKnob: { value: 0.2, min: 0.1, max: 1, step: 0.1 },
@@ -35,8 +41,25 @@ const Player = () => {
     }
   };
 
-  // JUMP
+  const reset = () => {
+    ball.current.setTranslation({ x: 0, y: 4, z: 0 }, true);
+    ball.current.setAngvel({ x: 0, y: 0, z: 0 }, true);
+    ball.current.setLinvel({ x: 0, y: 0, z: 0 }, true);
+  };
+
   useEffect(() => {
+    const unsubscribeGame = useGame.subscribe(
+      (state) => {
+        console.log(state);
+        return state.phase;
+      },
+      (value) => {
+        if (value === "ready") {
+          reset();
+        }
+      }
+    );
+
     const unsubscribeJump = subscribeKeys(
       (state) => {
         return state.jump;
@@ -48,8 +71,14 @@ const Player = () => {
       }
     );
 
+    const unsubscribeAny = subscribeKeys(() => {
+      start();
+    });
+
     return () => {
       unsubscribeJump();
+      unsubscribeAny();
+      unsubscribeGame();
     };
   }, []);
 
@@ -105,6 +134,17 @@ const Player = () => {
 
     state.camera.position.copy(smoothedCameraPosition);
     state.camera.lookAt(smoothedCameraTarget);
+
+    // PHASES
+
+    if (ballPosition.z < -(blocksCount * 4 + 2)) {
+      end();
+    }
+
+    if (ballPosition.y < -4) {
+      restart();
+      reset();
+    }
   });
 
   return (

@@ -48,6 +48,7 @@ const CanvasWrapper = ({ children }) => {
           style={{
             position: "absolute",
             top: 0,
+            overflow: "hidden",
           }}
         >
           <Stats />
