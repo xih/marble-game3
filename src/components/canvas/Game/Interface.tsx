@@ -1,3 +1,4 @@
+import useGame from "@/stores/useGame";
 import { useKeyboardControls } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 
@@ -8,13 +9,17 @@ const Interface = () => {
   const leftward = useKeyboardControls((state) => state.leftward);
   const jump = useKeyboardControls((state) => state.jump);
 
+  const restart = useGame((state) => state.restart);
+
   const [subscribeKeys, getKeys] = useKeyboardControls();
 
   return (
     <div className="fixed top-0 left-0 w-full h-full pointer-events-none overflow-y-scroll overflow-hidden">
       <div className="time">0.00</div>
 
-      <div className="restart">Restart</div>
+      <div className="restart" onClick={restart}>
+        Restart
+      </div>
 
       {/* Controls */}
       <div className="controls">

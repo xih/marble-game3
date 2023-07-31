@@ -14,7 +14,6 @@ module.exports = {
       screens: {
         "2xl": "1400px",
       },
-      overflow: "none",
     },
     // fontFamily: {
     //   display: ["Bebas Neue", cursive],

@@ -50,7 +50,6 @@ const Player = () => {
   useEffect(() => {
     const unsubscribeGame = useGame.subscribe(
       (state) => {
-        console.log(state);
         return state.phase;
       },
       (value) => {
@@ -142,7 +141,6 @@ const Player = () => {
 
     if (ballPosition.y < -4) {
       restart();
-      reset();
     }
   });
 
