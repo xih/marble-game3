@@ -7,8 +7,6 @@ import useGame from "@/stores/useGame";
 const GameExperience = () => {
   const blockCounts = useGame((state) => state.blocksCount);
 
-  console.log(blockCounts, "blocks");
-
   return (
     <>
       <Physics debug>

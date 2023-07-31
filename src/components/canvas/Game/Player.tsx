@@ -136,7 +136,6 @@ const Player = () => {
     state.camera.lookAt(smoothedCameraTarget);
 
     // PHASES
-
     if (ballPosition.z < -(blocksCount * 4 + 2)) {
       end();
     }

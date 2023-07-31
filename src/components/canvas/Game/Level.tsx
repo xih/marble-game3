@@ -1,12 +1,9 @@
 import { useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import { Block } from "@react-three/fiber/dist/declarations/src/core/utils";
 import {
   CuboidCollider,
-  Physics,
   RapierRigidBody,
   RigidBody,
-  quat,
 } from "@react-three/rapier";
 import { useRef, useState } from "react";
 
@@ -213,13 +210,11 @@ const Bounds = ({ length = 1 }) => {
   );
 };
 
-const Level = () => {
-  const numBlocks = 5;
+const Level = ({ numBlocks = 5 }) => {
   const blocks: BlockDefinition[] = [];
   const types = [BlockSpinner, BlockGate, BlockAxe];
 
   for (let i = 0; i < numBlocks; i++) {
-    // console.log(Math.floor(Math.random() * types.length))
     const type = types[Math.floor(Math.random() * types.length)];
     if (!!type) {
       blocks.push(type);
