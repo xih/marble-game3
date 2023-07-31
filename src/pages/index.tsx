@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import Shader from "@/components/canvas/ShaderExample/ShaderExample";
 import { KeyboardControls } from "@react-three/drei";
+import Interface from "@/components/canvas/Game/Interface";
 
 // Prefer dynamic import for production builds
 // But if you have issues and need to debug in local development
@@ -18,7 +19,7 @@ import { KeyboardControls } from "@react-three/drei";
 
 // DOM elements here
 const DOM = () => {
-  return <>hello</>;
+  return <>{/* <Interface /> */}</>;
 };
 
 // Canvas/R3F components here

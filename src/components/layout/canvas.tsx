@@ -8,6 +8,7 @@ import {
   Stats,
 } from "@react-three/drei";
 import * as THREE from "three";
+import Interface from "../canvas/Game/Interface";
 
 const Controls = () => {
   const control = useRef(null);
@@ -54,6 +55,7 @@ const CanvasWrapper = ({ children }) => {
           <Preload all />
           {children}
         </Canvas>
+        <Interface />
         <A11yAnnouncer />
       </KeyboardControls>
     </>
