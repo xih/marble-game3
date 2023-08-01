@@ -11,6 +11,7 @@ const GameExperience = () => {
   return (
     <>
       <Physics debug>
+        <color args={["#bdedfc"]} attach="background" />
         <Player />
         <Level numBlocks={blockCounts} seed={blocksSeed} />
         <Light />

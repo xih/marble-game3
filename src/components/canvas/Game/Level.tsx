@@ -1,4 +1,4 @@
-import { useGLTF } from "@react-three/drei";
+import { Float, useGLTF, Text } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import {
   CuboidCollider,
@@ -17,6 +17,20 @@ const BlockStart = ({ position }: { position: [number, number, number] }) => {
   return (
     <>
       <group position={position}>
+        <Float floatIntensity={0.24} rotationIntensity={0.25}>
+          <Text
+            font="./bebas-neue-v9-latin-regular.woff"
+            scale={0.5}
+            maxWidth={0.25}
+            lineHeight={0.75}
+            textAlign="right"
+            position={[0.75, 0.65, 0]}
+            rotation-y={-0.25}
+          >
+            Marble Race
+            <meshBasicMaterial toneMapped={false} />
+          </Text>
+        </Float>
         <mesh scale={[4, 0.2, 4]} receiveShadow position={[0, -0.1, 0]}>
           <boxGeometry />
           <meshStandardMaterial color="limegreen" />
@@ -33,6 +47,14 @@ const BlockEnd = ({ position }: { position: [number, number, number] }) => {
   return (
     <>
       <group position={position}>
+        <Text
+          font="./bebas-neue-v9-latin-regular.woff"
+          scale={2}
+          position={[0, 2.25, 2]}
+        >
+          FINISH
+          <meshBasicMaterial toneMapped={false} />
+        </Text>
         <mesh scale={[4, 0.2, 4]} receiveShadow castShadow>
           <boxGeometry args={[1, 1, 1]} />
           <meshStandardMaterial color="limegreen" />
