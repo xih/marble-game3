@@ -10,8 +10,17 @@ type State = {
 
   // mobile keys state
   forwardTouch: boolean;
+  leftPointer: boolean;
+  backPointer: boolean;
+  rightPointer: boolean;
   forwardTouchOnKeyDown: () => void;
   forwardTouchOnKeyUp: () => void;
+  leftPointerKeyDown: () => void;
+  leftPointerKeyUp: () => void;
+  backPointerKeyDown: () => void;
+  backPointerKeyUp: () => void;
+  rightPointerKeyDown: () => void;
+  rightPointerKeyUp: () => void;
 };
 
 export default create<State>()(
@@ -54,6 +63,11 @@ export default create<State>()(
 
       // mobile interfaces
       forwardTouch: false,
+      leftPointer: false,
+      backPointer: false,
+      rightPointer: false,
+
+      // forwardPointer
       forwardTouchOnKeyDown: () => {
         set((state) => {
           return {
@@ -61,11 +75,58 @@ export default create<State>()(
           };
         });
       },
-
       forwardTouchOnKeyUp: () => {
         set((state) => {
           return {
             forwardTouch: false,
+          };
+        });
+      },
+      // leftPointer
+      leftPointerKeyDown: () => {
+        set((state) => {
+          return {
+            leftPointer: true,
+          };
+        });
+      },
+      leftPointerKeyUp: () => {
+        set((state) => {
+          return {
+            leftPointer: false,
+          };
+        });
+      },
+
+      // backpointer
+      backPointerKeyDown: () => {
+        set((state) => {
+          console.log("state!!!");
+          return {
+            backPointer: true,
+          };
+        });
+      },
+      backPointerKeyUp: () => {
+        set((state) => {
+          return {
+            backPointer: false,
+          };
+        });
+      },
+
+      // right pointer
+      rightPointerKeyDown: () => {
+        set((state) => {
+          return {
+            rightPointer: true,
+          };
+        });
+      },
+      rightPointerKeyUp: () => {
+        set((state) => {
+          return {
+            rightPointer: false,
           };
         });
       },

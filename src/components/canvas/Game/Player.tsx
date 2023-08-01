@@ -27,6 +27,9 @@ const Player = () => {
   // const forwardUp = useGame((state) => state.fo)
 
   const forwardTouch = useGame((state) => state.forwardTouch);
+  const leftPointer = useGame((state) => state.leftPointer);
+  const backPointer = useGame((state) => state.backPointer);
+  const rightPointer = useGame((state) => state.rightPointer);
 
   const { impulseKnob, torqueKnob } = useControls({
     impulseKnob: { value: 0.6, min: 0.1, max: 1, step: 0.1 },
@@ -102,16 +105,16 @@ const Player = () => {
       torque.x -= torqueStrength;
     }
 
-    if (backward) {
+    if (backward || backPointer) {
       impulse.z += impulseStrength;
       torque.x += torqueStrength;
     }
 
-    if (rightward) {
+    if (rightward || rightPointer) {
       impulse.x += impulseStrength;
       torque.z -= torqueStrength;
     }
-    if (leftward) {
+    if (leftward || leftPointer) {
       impulse.x -= impulseStrength;
       torque.z += torqueStrength;
     }

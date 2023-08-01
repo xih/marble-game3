@@ -11,9 +11,21 @@ const Interface = () => {
 
   const restart = useGame((state) => state.restart);
 
+  const forwardTouch = useGame((state) => state.forwardTouch);
   const forwardTouchOnKeyDown = useGame((state) => state.forwardTouchOnKeyDown);
   const forwardTouchOnKeyUp = useGame((state) => state.forwardTouchOnKeyUp);
-  const forwardTouch = useGame((state) => state.forwardTouch);
+
+  const rightPointer = useGame((state) => state.rightPointer);
+  const rightPointerKeyDown = useGame((state) => state.rightPointerKeyDown);
+  const rightPointerKeyUp = useGame((state) => state.rightPointerKeyUp);
+
+  const leftPointer = useGame((state) => state.leftPointer);
+  const leftPointerKeyDown = useGame((state) => state.leftPointerKeyDown);
+  const leftPointerKeyUp = useGame((state) => state.leftPointerKeyUp);
+
+  const backPointer = useGame((state) => state.backPointer);
+  const backPointerKeyDown = useGame((state) => state.backPointerKeyDown);
+  const backPointerKeyUp = useGame((state) => state.backPointerKeyUp);
 
   const [subscribeKeys, getKeys] = useKeyboardControls();
 
@@ -26,7 +38,7 @@ const Interface = () => {
       </div>
 
       {/* Controls */}
-      <div className="controls">
+      <div className="controls select-none">
         <div className="raw">
           <div
             onPointerDown={() => forwardTouchOnKeyDown()}
@@ -35,9 +47,21 @@ const Interface = () => {
           ></div>
         </div>
         <div className="raw">
-          <div className={`key ${rightward ? "active" : ""}`}></div>
-          <div className={`key ${backward ? "active" : ""}`}></div>
-          <div className={`key ${leftward ? "active" : ""}`}></div>
+          <div
+            onPointerDown={() => leftPointerKeyDown()}
+            onPointerUp={() => leftPointerKeyUp()}
+            className={`key ${leftward || leftPointer ? "active" : ""}`}
+          ></div>
+          <div
+            onPointerDown={() => backPointerKeyDown()}
+            onPointerUp={() => backPointerKeyUp()}
+            className={`key ${backward || backPointer ? "active" : ""}`}
+          ></div>
+          <div
+            onPointerDown={() => rightPointerKeyDown()}
+            onPointerUp={() => rightPointerKeyUp()}
+            className={`key ${rightward || rightPointer ? "active" : ""}`}
+          ></div>
         </div>
         <div className="raw">
           <div className={`key large ${jump ? "active" : ""}`}></div>
