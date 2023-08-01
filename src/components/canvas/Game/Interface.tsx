@@ -30,7 +30,7 @@ const Interface = () => {
   const [subscribeKeys, getKeys] = useKeyboardControls();
 
   return (
-    <div className="fixed top-0 left-0 w-full h-full pointer-events-none overflow-y-scroll overflow-hidden">
+    <div className="fixed top-0 left-0 w-full h-full select-none pointer-events-none overflow-y-scroll overflow-hidden">
       <div className="time">0.00</div>
 
       <div className="restart" onClick={restart}>
