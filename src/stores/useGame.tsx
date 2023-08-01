@@ -21,6 +21,10 @@ type State = {
   backPointerKeyUp: () => void;
   rightPointerKeyDown: () => void;
   rightPointerKeyUp: () => void;
+
+  jumpPressed: boolean;
+  jumpKeyDown: () => void;
+  jumpKeyUp: () => void;
 };
 
 export default create<State>()(
@@ -127,6 +131,23 @@ export default create<State>()(
         set((state) => {
           return {
             rightPointer: false,
+          };
+        });
+      },
+
+      // jump
+      jumpPressed: false,
+      jumpKeyDown: () => {
+        set((state) => {
+          return {
+            jumpPressed: true,
+          };
+        });
+      },
+      jumpKeyUp: () => {
+        set((state) => {
+          return {
+            jumpPressed: false,
           };
         });
       },

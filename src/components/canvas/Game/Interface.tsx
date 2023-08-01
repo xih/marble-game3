@@ -27,6 +27,10 @@ const Interface = () => {
   const backPointerKeyDown = useGame((state) => state.backPointerKeyDown);
   const backPointerKeyUp = useGame((state) => state.backPointerKeyUp);
 
+  const jumpPressed = useGame((state) => state.jumpPressed);
+  const jumpKeyDown = useGame((state) => state.jumpKeyDown);
+  const jumpKeyUp = useGame((state) => state.jumpKeyUp);
+
   const [subscribeKeys, getKeys] = useKeyboardControls();
 
   return (
@@ -64,7 +68,15 @@ const Interface = () => {
           ></div>
         </div>
         <div className="raw">
-          <div className={`key large ${jump ? "active" : ""}`}></div>
+          <div
+            onPointerDown={() => {
+              jumpKeyDown();
+            }}
+            onPointerUp={() => {
+              jumpKeyUp();
+            }}
+            className={`key large ${jump || jumpPressed ? "active" : ""}`}
+          ></div>
         </div>
       </div>
     </div>

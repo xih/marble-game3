@@ -31,6 +31,9 @@ const Player = () => {
   const backPointer = useGame((state) => state.backPointer);
   const rightPointer = useGame((state) => state.rightPointer);
 
+  // jump controls
+  const jumpPressed = useGame((state) => state.jumpPressed);
+
   const { impulseKnob, torqueKnob } = useControls({
     impulseKnob: { value: 0.6, min: 0.1, max: 1, step: 0.1 },
     torqueKnob: { value: 0.2, min: 0.1, max: 1, step: 0.1 },
@@ -54,6 +57,12 @@ const Player = () => {
     ball.current.setAngvel({ x: 0, y: 0, z: 0 }, true);
     ball.current.setLinvel({ x: 0, y: 0, z: 0 }, true);
   };
+
+  useEffect(() => {
+    if (jumpPressed) {
+      jump();
+    }
+  }, [jumpPressed, jump]);
 
   useEffect(() => {
     const unsubscribeGame = useGame.subscribe(
