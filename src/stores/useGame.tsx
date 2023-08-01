@@ -25,12 +25,17 @@ type State = {
   jumpPressed: boolean;
   jumpKeyDown: () => void;
   jumpKeyUp: () => void;
+
+  startTime: number;
+  endTime: number;
 };
 
 export default create<State>()(
   subscribeWithSelector((set) => {
     return {
       blocksCount: 3,
+      startTime: 0,
+      endTime: 0,
 
       // Phases
       phase: "ready",
@@ -39,6 +44,7 @@ export default create<State>()(
           if (state.phase === "ready") {
             return {
               phase: "playing",
+              startTime: Date.now(),
             };
           }
 
@@ -59,6 +65,7 @@ export default create<State>()(
           if (state.phase === "playing") {
             return {
               phase: "ended",
+              endTime: Date.now(),
             };
           }
 
@@ -105,7 +112,6 @@ export default create<State>()(
       // backpointer
       backPointerKeyDown: () => {
         set((state) => {
-          console.log("state!!!");
           return {
             backPointer: true,
           };

@@ -62,7 +62,14 @@ const Player = () => {
     if (jumpPressed) {
       jump();
     }
-  }, [jumpPressed, jump]);
+  }, [jumpPressed]);
+
+  // test if any of the physical keys are pressed
+  // useEffect(() => {
+  //   if (forwardTouch || backPointer || leftPointer || rightPointer) {
+  //     start();
+  //   }
+  // }, []);
 
   useEffect(() => {
     const unsubscribeGame = useGame.subscribe(
@@ -88,6 +95,7 @@ const Player = () => {
     );
 
     const unsubscribeAny = subscribeKeys(() => {
+      console.log("clicked!asdfassd ");
       start();
     });
 
@@ -128,6 +136,17 @@ const Player = () => {
       torque.z += torqueStrength;
     }
 
+    // added this so that if you only use the physical keys to fall of the screen you still respawn
+    if (
+      forwardTouch ||
+      backPointer ||
+      leftPointer ||
+      rightPointer ||
+      jumpPressed
+    ) {
+      start();
+    }
+
     ball.current.applyImpulse(impulse, true);
     ball.current.applyTorqueImpulse(torque, true);
 
@@ -157,6 +176,7 @@ const Player = () => {
     }
 
     if (ballPosition.y < -4) {
+      // console.log("does it go here?");
       restart();
     }
   });

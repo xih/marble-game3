@@ -1,6 +1,7 @@
 import useGame from "@/stores/useGame";
 import { useKeyboardControls } from "@react-three/drei";
-import { useFrame } from "@react-three/fiber";
+import { addEffect, useFrame } from "@react-three/fiber";
+import { useEffect, useRef } from "react";
 
 const Interface = () => {
   const forward = useKeyboardControls((state) => state.forward);
@@ -10,6 +11,7 @@ const Interface = () => {
   const jump = useKeyboardControls((state) => state.jump);
 
   const restart = useGame((state) => state.restart);
+  const phase = useGame((state) => state.phase);
 
   const forwardTouch = useGame((state) => state.forwardTouch);
   const forwardTouchOnKeyDown = useGame((state) => state.forwardTouchOnKeyDown);
@@ -33,13 +35,50 @@ const Interface = () => {
 
   const [subscribeKeys, getKeys] = useKeyboardControls();
 
+  // time section work
+  const time = useRef<HTMLDivElement>();
+
+  const startTime = useGame((state) => state.startTime);
+  const endTime = useGame((state) => state.endTime);
+
+  useEffect(() => {
+    // const elapsedTime =
+    const unsubscribeEffect = addEffect(() => {
+      console.log("tick!");
+      console.log(startTime);
+      console.log(endTime);
+
+      let elapsedTime = 0;
+      if (phase === "playing") {
+        elapsedTime = Date.now() - startTime;
+      }
+      if (phase === "ended") {
+        elapsedTime = endTime - startTime;
+      }
+      elapsedTime /= 1000;
+      const elapsedTimeString = elapsedTime.toFixed(2);
+
+      if (time.current) {
+        time.current.textContent = elapsedTimeString;
+      }
+    });
+
+    return () => {
+      unsubscribeEffect();
+    };
+  });
+
   return (
     <div className="fixed top-0 left-0 w-full h-full select-none pointer-events-none overflow-y-scroll overflow-hidden">
-      <div className="time">0.00</div>
-
-      <div className="restart" onClick={restart}>
-        Restart
+      <div ref={time} className="time">
+        0.00
       </div>
+
+      {phase === "ended" && (
+        <div className="restart" onClick={restart}>
+          Restart
+        </div>
+      )}
 
       {/* Controls */}
       <div className="controls select-none">
