@@ -29,8 +29,8 @@ const Interface = () => {
       <div className="controls">
         <div className="raw">
           <div
-            onMouseDown={() => forwardTouchOnKeyDown()}
-            onMouseUp={() => forwardTouchOnKeyUp()}
+            onPointerDown={() => forwardTouchOnKeyDown()}
+            onPointerUp={() => forwardTouchOnKeyUp()}
             className={`key ${forward || forwardTouch ? "active" : ""}`}
           ></div>
         </div>
