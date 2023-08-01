@@ -6,12 +6,13 @@ import useGame from "@/stores/useGame";
 
 const GameExperience = () => {
   const blockCounts = useGame((state) => state.blocksCount);
+  const blocksSeed = useGame((state) => state.blocksSeed);
 
   return (
     <>
       <Physics debug>
         <Player />
-        <Level numBlocks={blockCounts} />
+        <Level numBlocks={blockCounts} seed={blocksSeed} />
         <Light />
       </Physics>
     </>

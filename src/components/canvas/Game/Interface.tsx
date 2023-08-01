@@ -44,10 +44,6 @@ const Interface = () => {
   useEffect(() => {
     // const elapsedTime =
     const unsubscribeEffect = addEffect(() => {
-      console.log("tick!");
-      console.log(startTime);
-      console.log(endTime);
-
       let elapsedTime = 0;
       if (phase === "playing") {
         elapsedTime = Date.now() - startTime;

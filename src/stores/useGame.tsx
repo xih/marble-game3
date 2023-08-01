@@ -8,6 +8,9 @@ type State = {
   restart: () => void;
   end: () => void;
 
+  // random level
+  blocksSeed: number;
+
   // mobile keys state
   forwardTouch: boolean;
   leftPointer: boolean;
@@ -33,7 +36,8 @@ type State = {
 export default create<State>()(
   subscribeWithSelector((set) => {
     return {
-      blocksCount: 3,
+      blocksCount: 10,
+      blocksSeed: 0,
       startTime: 0,
       endTime: 0,
 
@@ -55,6 +59,7 @@ export default create<State>()(
           if (state.phase === "ended" || state.phase === "playing") {
             return {
               phase: "ready",
+              blocksSeed: Math.random(),
             };
           }
           return {};

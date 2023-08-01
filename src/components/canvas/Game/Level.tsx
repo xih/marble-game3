@@ -5,7 +5,7 @@ import {
   RapierRigidBody,
   RigidBody,
 } from "@react-three/rapier";
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 
 import * as THREE from "three";
 
@@ -28,6 +28,8 @@ const BlockStart = ({ position }: { position: [number, number, number] }) => {
 
 const BlockEnd = ({ position }: { position: [number, number, number] }) => {
   const hamburer = useGLTF("./hamburger2.glb");
+
+  hamburer.scene.children.forEach((mesh) => (mesh.castShadow = true));
   return (
     <>
       <group position={position}>
@@ -42,6 +44,43 @@ const BlockEnd = ({ position }: { position: [number, number, number] }) => {
     </>
   );
 };
+
+// const BlockEnd = ({ position }: { position: [number, number, number] }) => {
+//   const hamburger2 = useGLTF("./hamburger2.glb");
+
+//   hamburger2.scene.children.forEach((mesh) => (mesh.castShadow = true));
+
+//   return (
+//     <group position={position}>
+//       <Text
+//         font="./fonts/bebas-neue-v9-latin-regular.woff"
+//         position={[0, 2.25, 2]}
+//         scale={1}
+//       >
+//         Finish
+//         <meshBasicMaterial toneMapped={false} />
+//       </Text>
+
+//       {/* Floor */}
+//       <mesh
+//         geometry={boxGeometry}
+//         material={floor1Material}
+//         position={[0, 0, 0]}
+//         scale={[4, 0.2, 4]}
+//         receiveShadow
+//       />
+//       <RigidBody
+//         type="fixed"
+//         position={[0, 0.25, 0]}
+//         colliders="hull"
+//         restitution={0.2}
+//         friction={0}
+//       >
+//         <primitive object={hamburger2.scene} scale={0.2} />
+//       </RigidBody>
+//     </group>
+//   );
+// };
 
 const BlockSpinner = ({
   position,
@@ -210,16 +249,24 @@ const Bounds = ({ length = 1 }) => {
   );
 };
 
-const Level = ({ numBlocks = 5 }) => {
-  const blocks: BlockDefinition[] = [];
-  const types = [BlockSpinner, BlockGate, BlockAxe];
+const Level = ({
+  numBlocks = 5,
+  types = [BlockSpinner, BlockGate, BlockAxe],
+  seed = 0,
+}) => {
+  const blocks = useMemo(() => {
+    const blocks: BlockDefinition[] = [];
+    // const types = [BlockSpinner, BlockGate, BlockAxe];
 
-  for (let i = 0; i < numBlocks; i++) {
-    const type = types[Math.floor(Math.random() * types.length)];
-    if (!!type) {
-      blocks.push(type);
+    for (let i = 0; i < numBlocks; i++) {
+      const type = types[Math.floor(Math.random() * types.length)];
+      if (!!type) {
+        blocks.push(type);
+      }
     }
-  }
+
+    return blocks;
+  }, [numBlocks, types, seed]);
 
   return (
     <>

@@ -95,7 +95,6 @@ const Player = () => {
     );
 
     const unsubscribeAny = subscribeKeys(() => {
-      console.log("clicked!asdfassd ");
       start();
     });
 
