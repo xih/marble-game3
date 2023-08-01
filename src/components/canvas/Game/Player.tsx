@@ -23,6 +23,11 @@ const Player = () => {
   const restart = useGame((state) => state.restart);
   const blocksCount = useGame((state) => state.blocksCount);
 
+  // const forwardDown = useGame()
+  // const forwardUp = useGame((state) => state.fo)
+
+  const forwardTouch = useGame((state) => state.forwardTouch);
+
   const { impulseKnob, torqueKnob } = useControls({
     impulseKnob: { value: 0.6, min: 0.1, max: 1, step: 0.1 },
     torqueKnob: { value: 0.2, min: 0.1, max: 1, step: 0.1 },
@@ -92,7 +97,7 @@ const Player = () => {
     const impulseStrength = impulseKnob * delta;
     const torqueStrength = torqueKnob * delta;
 
-    if (forward) {
+    if (forward || forwardTouch) {
       impulse.z -= impulseStrength;
       torque.x -= torqueStrength;
     }

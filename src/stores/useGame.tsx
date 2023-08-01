@@ -7,6 +7,11 @@ type State = {
   start: () => void;
   restart: () => void;
   end: () => void;
+
+  // mobile keys state
+  forwardTouch: boolean;
+  forwardTouchOnKeyDown: () => void;
+  forwardTouchOnKeyUp: () => void;
 };
 
 export default create<State>()(
@@ -46,6 +51,24 @@ export default create<State>()(
 
           return {};
         }),
+
+      // mobile interfaces
+      forwardTouch: false,
+      forwardTouchOnKeyDown: () => {
+        set((state) => {
+          return {
+            forwardTouch: true,
+          };
+        });
+      },
+
+      forwardTouchOnKeyUp: () => {
+        set((state) => {
+          return {
+            forwardTouch: false,
+          };
+        });
+      },
     };
   })
 );

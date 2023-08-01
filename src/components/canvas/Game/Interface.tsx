@@ -11,6 +11,10 @@ const Interface = () => {
 
   const restart = useGame((state) => state.restart);
 
+  const forwardTouchOnKeyDown = useGame((state) => state.forwardTouchOnKeyDown);
+  const forwardTouchOnKeyUp = useGame((state) => state.forwardTouchOnKeyUp);
+  const forwardTouch = useGame((state) => state.forwardTouch);
+
   const [subscribeKeys, getKeys] = useKeyboardControls();
 
   return (
@@ -24,7 +28,11 @@ const Interface = () => {
       {/* Controls */}
       <div className="controls">
         <div className="raw">
-          <div className={`key ${forward ? "active" : ""}`}></div>
+          <div
+            onMouseDown={() => forwardTouchOnKeyDown()}
+            onMouseUp={() => forwardTouchOnKeyUp()}
+            className={`key ${forward || forwardTouch ? "active" : ""}`}
+          ></div>
         </div>
         <div className="raw">
           <div className={`key ${rightward ? "active" : ""}`}></div>
