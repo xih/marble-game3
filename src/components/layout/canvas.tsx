@@ -9,6 +9,7 @@ import {
 } from "@react-three/drei";
 import * as THREE from "three";
 import Interface from "../canvas/Game/Interface";
+import FPSControlsInterface from "../canvas/Game/FPSControlsInterface";
 
 const Controls = () => {
   const control = useRef(null);
@@ -31,12 +32,12 @@ const CanvasWrapper = ({ children }) => {
           shadows
           dpr={2}
           flat
-          camera={{
-            fov: 45,
-            near: 0.1,
-            far: 200,
-            position: [2.5, 4, 6],
-          }}
+          // camera={{
+          //   fov: 45,
+          //   near: 0.1,
+          //   far: 200,
+          //   position: [2.5, 4, 6],
+          // }}
           gl={{
             antialias: false,
             toneMapping: THREE.ACESFilmicToneMapping,
@@ -51,6 +52,7 @@ const CanvasWrapper = ({ children }) => {
             overflow: "hidden",
           }}
         >
+          <FPSControlsInterface />
           <Stats />
           {/* <Controls /> */}
           <Preload all />

@@ -19,7 +19,14 @@ import Interface from "@/components/canvas/Game/Interface";
 
 // DOM elements here
 const DOM = () => {
-  return <>{/* <Interface /> */}</>;
+  return (
+    <>
+      {/* <Interface /> */}
+      <div id="mobileInterface" className="noSelect">
+        <div id="joystickWrapper1"></div>
+      </div>
+    </>
+  );
 };
 
 // Canvas/R3F components here

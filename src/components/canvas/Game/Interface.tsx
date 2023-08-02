@@ -2,7 +2,7 @@ import useGame from "@/stores/useGame";
 import { useKeyboardControls } from "@react-three/drei";
 import { addEffect, useFrame } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
-import JoystickControls from "./JoystickControls";
+// import JoystickControls from "./JoystickControls";
 
 const Interface = () => {
   const forward = useKeyboardControls((state) => state.forward);
@@ -78,7 +78,7 @@ const Interface = () => {
       )}
 
       {/* joystick */}
-      <JoystickControls />
+      {/* <JoystickControls /> */}
 
       {/* Controls */}
       <div className="controls select-none">
