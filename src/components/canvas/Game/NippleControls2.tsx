@@ -1,12 +1,15 @@
 import dynamic from "next/dynamic";
-import React, { ComponentType, ForwardedRef, ReactNode } from "react";
+import React, { ComponentType, FC, ForwardedRef, ReactNode } from "react";
 import "react-nipple/lib/styles.css";
 
 // type NewType = ForwardedRef<Options>;
 
-const ReactNipple: NippleFunc = dynamic(() => import("react-nipple"), {
-  ssr: false,
-});
+const ReactNipple: ComponentType<someComponentProps> = dynamic(
+  () => import("react-nipple"),
+  {
+    ssr: false,
+  }
+);
 
 // console.log(ReactNipple);
 
@@ -17,6 +20,12 @@ interface Options {
     left: string;
   };
   size: number;
+}
+
+interface someComponentProps {
+  options: any;
+  style: any;
+  onMove: any;
 }
 
 type NippleFunc = ({
