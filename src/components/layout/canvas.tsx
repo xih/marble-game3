@@ -9,7 +9,7 @@ import {
 } from "@react-three/drei";
 import * as THREE from "three";
 import Interface from "../canvas/Game/Interface";
-import FPSControlsInterface from "../canvas/Game/FPSControlsInterface";
+// import FPSControlsInterface from "../canvas/Game/FPSControlsInterface";
 
 const Controls = () => {
   const control = useRef(null);
@@ -52,7 +52,7 @@ const CanvasWrapper = ({ children }) => {
             overflow: "hidden",
           }}
         >
-          <FPSControlsInterface />
+          {/* <FPSControlsInterface /> */}
           <Stats />
           {/* <Controls /> */}
           <Preload all />

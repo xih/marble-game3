@@ -2,6 +2,7 @@ import useGame from "@/stores/useGame";
 import { useKeyboardControls } from "@react-three/drei";
 import { addEffect, useFrame } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
+// import NippleControls from "./nippleControls";
 // import JoystickControls from "./JoystickControls";
 
 const Interface = () => {

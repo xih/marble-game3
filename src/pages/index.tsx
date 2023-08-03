@@ -5,6 +5,8 @@ import { useRouter } from "next/router";
 import Shader from "@/components/canvas/ShaderExample/ShaderExample";
 import { KeyboardControls } from "@react-three/drei";
 import Interface from "@/components/canvas/Game/Interface";
+import NippleControls2 from "@/components/canvas/Game/NippleControls2";
+// import NippleControls from "@/components/canvas/Game/nippleControls";
 
 // Prefer dynamic import for production builds
 // But if you have issues and need to debug in local development
@@ -19,14 +21,22 @@ import Interface from "@/components/canvas/Game/Interface";
 
 // DOM elements here
 const DOM = () => {
-  return (
+  // console.log("DOM!!!");
+  if (typeof window !== "undefined") {
+    // return (
     <>
+      {/* <div></div> */}
       {/* <Interface /> */}
-      <div id="mobileInterface" className="noSelect">
+      {/* <div id="mobileInterface" className="noSelect">
         <div id="joystickWrapper1"></div>
-      </div>
-    </>
-  );
+      </div> */}
+
+      {/* <NippleControls /> */}
+    </>;
+    // );
+    return <NippleControls2 />;
+    // return null;
+  }
 };
 
 // Canvas/R3F components here
@@ -55,10 +65,10 @@ export default function Page() {
   );
 }
 
-export async function getStaticProps() {
-  return {
-    props: {
-      title: "Welcome!",
-    },
-  };
-}
+// export async function getStaticProps() {
+//   return {
+//     props: {
+//       title: "Welcome!",
+//     },
+//   };
+// }
